@@ -12,9 +12,8 @@ async function main(): Promise<void> {
 
   const agent = new Agent(client, {
     systemPrompt:
-      "You are a helpful coding assistant. " +
-      "You have access to a bash tool that can execute shell commands. " +
-      "Use it when needed to help the user. Answer concisely.",
+      "You are a helpful assistant. " +
+      "You have tools available — use them when needed. Answer concisely.",
     tools: ALL_TOOLS,
   });
 

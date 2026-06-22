@@ -7,7 +7,7 @@
   "type": "module",
   "main": "index.js",
   "scripts": {
-    "build": "tsc",
+    "build": "rm -rf dist && tsc",
     "start": "tsx src/index.ts",
     "start:dist": "node dist/index.js",
     "test": "echo \"Error: no test specified\" && exit 1"
