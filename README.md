@@ -10,7 +10,8 @@
 | 课程 | 主题 | 代码状态 |
 |------|------|---------|
 | Lesson 01 | Agent 骨架 — Agent Loop、LLM 通信、工具调用 | ✅ 已完成 |
-| Lesson 02 | 待定 | ⏳ 进行中 |
+| Lesson 02 | 工具系统 — read、write、glob 多工具注册 | ✅ 已完成 |
+| Lesson 03 | 权限系统 — 三闸流水线（Deny / Context / User） | ✅ 已完成 |
 
 ## 快速启动
 

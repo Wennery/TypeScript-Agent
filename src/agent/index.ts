@@ -13,7 +13,7 @@ import { findTool, buildToolDefinitions } from "../tools/index.js";
  * 职责：
  * - 维护对话历史
  * - 调用 LLM（带工具定义）
- * - 若 LLM 请求 tool_use → 执行工具 → 把结果塞回 messages → 再次调用 LLM
+ * - 若 LLM 请求 tool_use → 权限检查 → 执行工具 → 把结果塞回 messages → 再次调用 LLM
  * - 若 LLM 返回纯文本 → 返回给用户
  *
  * 不做的：
@@ -27,6 +27,7 @@ export class Agent {
   private messages: Message[];
   private state: AgentState;
   private tools: Tool[];
+  private pipeline?;
 
   constructor(client: LLMClient, config: AgentConfig) {
     this.client = client;
@@ -34,6 +35,7 @@ export class Agent {
     this.messages = [];
     this.state = "idle";
     this.tools = config.tools || [];
+    this.pipeline = config.pipeline;
   }
 
   /**
@@ -44,7 +46,7 @@ export class Agent {
    *   2. 进入 loop：调用 LLM（传入 tools 定义）
    *   3. 若 LLM 返回错误 → 退出 loop，返回错误
    *   4. 若 LLM 没有 tool_use → 退出 loop，返回文本
-   *   5. 若 LLM 有 tool_use → 执行每个工具 → 把结果塞回 messages → 回到步骤 2
+   *   5. 若 LLM 有 tool_use → 每个工具：权限检查 → 执行 → 把结果塞回 messages → 回到步骤 2
    */
   async chat(userInput: string): Promise<string> {
     this.state = "thinking";
@@ -103,6 +105,18 @@ export class Agent {
             type: "tool_result",
             tool_use_id: tu.id,
             content: `Error: Tool "${tu.name}" not found`,
+            is_error: true,
+          });
+          continue;
+        }
+
+        // 权限检查 — 三闸流水线
+        const permResult = await this.pipeline?.check(tu.name, tu.input);
+        if (permResult && permResult.action === "deny") {
+          toolResultBlocks.push({
+            type: "tool_result",
+            tool_use_id: tu.id,
+            content: `${permResult.reason}`,
             is_error: true,
           });
           continue;

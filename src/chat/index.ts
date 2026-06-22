@@ -5,10 +5,10 @@ import type { Agent } from "../agent/index.js";
 
 /**
  * Chat：用户交互层。
- * 
+ *
  * 职责：显示提示、读取输入、打印回复。
  * 不做任何业务逻辑，只调用 agent.chat()。
- * 
+ *
  * 未来可替换：Web UI、Slack bot、API server，都不需要改 Agent。
  */
 export class Chat {
@@ -26,6 +26,18 @@ export class Chat {
     this.rl.on("close", () => {
       this.closed = true;
     });
+  }
+
+  /**
+   * 当 PermissionPipeline 的 Gate 2 匹配到规则后，由 pipeline 调用此方法。
+   * 向用户展示操作详情，等待 y/N 批准。
+   */
+  async askPermission(toolName: string, args: Record<string, unknown>, reason: string): Promise<boolean> {
+    console.log(`\n⚠️  ${reason}`);
+    console.log(`   Tool: ${toolName}`);
+    console.log(`   Args: ${JSON.stringify(args)}`);
+    const answer = await this.ask("   Allow? (y/N): ");
+    return answer.trim().toLowerCase() === "y";
   }
 
   /**
