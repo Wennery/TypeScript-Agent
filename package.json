@@ -1,0 +1,24 @@
+{
+  "name": "typescript-study",
+  "version": "1.0.0",
+  "description": "从零构建 AI Agent — 学习 TypeScript 与 Agent 工程",
+  "license": "ISC",
+  "author": "Wennery",
+  "type": "module",
+  "main": "index.js",
+  "scripts": {
+    "build": "tsc",
+    "start": "tsx src/index.ts",
+    "start:dist": "node dist/index.js",
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "devDependencies": {
+    "@types/node": "^25.9.3",
+    "tsx": "^4.22.4",
+    "typescript": "^6.0.3"
+  },
+  "dependencies": {
+    "@anthropic-ai/sdk": "^0.104.2",
+    "dotenv": "^17.4.2"
+  }
+}

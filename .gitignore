@@ -1,0 +1,24 @@
+# ── Dependencies ──
+node_modules/
+
+# ── Build output ──
+dist/
+
+# ── Environment ──
+.env
+.env.local
+.env.*.local
+
+# ── Temp / scratch ──
+tmp/
+
+# ── OS files ──
+.DS_Store
+Thumbs.db
+
+# ── IDE ──
+.vscode/settings.json
+.idea/
+*.swp
+*.swo
+*~
