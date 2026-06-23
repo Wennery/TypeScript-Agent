@@ -1,7 +1,7 @@
 {
-  "name": "typescript-study",
+  "name": "lumi-agent",
   "version": "1.0.0",
-  "description": "从零构建 AI Agent — 学习 TypeScript 与 Agent 工程",
+  "description": "Lumi Agent — 从零构建 AI Agent",
   "license": "ISC",
   "author": "Wennery",
   "type": "module",

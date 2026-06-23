@@ -1,7 +1,7 @@
-# 🧠 TypeScript Agent — 从零构建 AI Agent
+# Lumi Agent — 从零构建 AI Agent
 
 > 一个学习 TypeScript 和 Agent 工程的渐进式项目。
-> 从最基本的 Agent Loop 开始，逐步添加工具、权限、子 Agent、记忆系统等能力。
+> 从最基本的 Agent Loop 开始，逐步添加工具、权限、TUI、多会话、Electron 桌面应用等能力。
 
 ## 课程结构
 
